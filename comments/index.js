@@ -4,6 +4,8 @@ const { randomBytes } = require('crypto');
 const cors = require('cors');
 const axios = require('axios');
 
+const EVENT_BUS_URL = process.env.EVENT_BUS_URL || "http://localhost:4005";
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -25,7 +27,7 @@ app.post('/posts/:id/comments', async (req, res, next) => {
   commentsByPostId[req.params.id] = comments;
 
   try {
-    await axios.post('http://localhost:4005/events', {
+    await axios.post(`${EVENT_BUS_URL}/events`, {
       type: 'CommentCreated',
       data: {
         id: commentId,
@@ -56,7 +58,7 @@ app.post('/events', async (req, res, next) => {
     comment.status = status;
 
     try {
-      await axios.post('http://localhost:4005/events', {
+      await axios.post(`${EVENT_BUS_URL}/events`, {
         type: 'CommentUpdated',
         data: {
           id,
@@ -91,5 +93,6 @@ app.use((err, req, res, next) => {
 
 
 app.listen(4001, () => {
+  console.log(`event bus at ${EVENT_BUS_URL}`);
   console.log('Listening on 4001');
 });

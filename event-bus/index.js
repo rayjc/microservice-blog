@@ -2,6 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
+const POSTS_URL = process.env.POSTS_URL || "http://localhost:4000";
+const COMMENTS_URL = process.env.COMMENTS_URL || "http://localhost:4001";
+const QUERY_URL = process.env.QUERY_URL || "http://localhost:4002";
+const MODERATION_URL = process.env.MODERATION_URL || "http://localhost:4003";
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -14,10 +19,10 @@ app.post('/events', async (req, res, next) => {
 
   try {
     await Promise.allSettled([
-      axios.post('http://localhost:4000/events', event),
-      axios.post('http://localhost:4001/events', event),
-      axios.post('http://localhost:4002/events', event),
-      axios.post('http://localhost:4003/events', event)
+      axios.post(`${POSTS_URL}/events`, event),
+      // axios.post(`${COMMENTS_URL}/events`, event),
+      // axios.post(`${QUERY_URL}/events`, event),
+      // axios.post(`${MODERATION_URL}/events`, event)
     ]);
   } catch (error) {
     return next(error);
@@ -47,5 +52,9 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(4005, () => {
+  console.log(`posts service at ${POSTS_URL}`);
+  console.log(`comments service at ${COMMENTS_URL}`);
+  console.log(`query service at ${QUERY_URL}`);
+  console.log(`moderation service at ${MODERATION_URL}`);
   console.log('Listening on 4005');
 });

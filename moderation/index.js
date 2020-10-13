@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
+const EVENT_BUS_URL = process.env.EVENT_BUS_URL || "http://localhost:4005";
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -12,7 +14,7 @@ app.post('/events', async (req, res, next) => {
     const status = data.content.includes('orange') ? 'rejected' : 'approved';
 
     try {
-      await axios.post('http://localhost:4005/events', {
+      await axios.post(`${EVENT_BUS_URL}/events`, {
         type: 'CommentModerated',
         data: {
           id: data.id,
@@ -46,5 +48,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(4003, () => {
+  console.log(`event bus at ${EVENT_BUS_URL}`);
   console.log('Listening on 4003');
 });
