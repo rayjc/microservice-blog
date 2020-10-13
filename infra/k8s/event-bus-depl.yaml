@@ -16,6 +16,15 @@ spec:
         # only specify :latest if image is on docker hub
         - name: event-bus
           image: rayjc/event-bus
+          env:
+          - name: POSTS_URL
+            value: "http://posts-clusterip-srv:4000"
+          - name: COMMENTS_URL
+            value: "http://comments-srv:4001"
+          - name: QUERY_URL
+            value: "http://query-srv:4002"
+          - name: MODERATION_URL
+            value: "http://moderation-srv:4003"
 # clusterip service
 ---
 apiVersion: v1
