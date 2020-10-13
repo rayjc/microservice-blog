@@ -20,9 +20,9 @@ app.post('/events', async (req, res, next) => {
   try {
     await Promise.allSettled([
       axios.post(`${POSTS_URL}/events`, event),
-      // axios.post(`${COMMENTS_URL}/events`, event),
-      // axios.post(`${QUERY_URL}/events`, event),
-      // axios.post(`${MODERATION_URL}/events`, event)
+      axios.post(`${COMMENTS_URL}/events`, event),
+      axios.post(`${QUERY_URL}/events`, event),
+      axios.post(`${MODERATION_URL}/events`, event)
     ]);
   } catch (error) {
     return next(error);
