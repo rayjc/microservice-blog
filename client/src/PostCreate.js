@@ -9,7 +9,7 @@ export default () => {
     event.preventDefault();
 
     try {
-      await axios.post(`${BACKEND_URL}:4000/posts`, {
+      await axios.post(`${BACKEND_URL}:4000/posts/create`, {
         title
       });
     } catch (error) {
