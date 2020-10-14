@@ -9,7 +9,8 @@ export default () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(`${BACKEND_URL}:4002/posts`);
+      // console.log(`BACKEND_URL: ${BACKEND_URL}`);
+      const res = await axios.get(`${BACKEND_URL}/posts`);
       setPosts(res.data);
     } catch (error) {
       console.error("API error", error.response);
@@ -17,7 +18,7 @@ export default () => {
         let message = error.response.data.message;
         throw Array.isArray(message) ? message : [message];
       }
-      throw "Server probably crashed...";
+      throw new Error("Server probably crashed...");
     }
   };
 

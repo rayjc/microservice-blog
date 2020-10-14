@@ -8,7 +8,7 @@ export default ({ postId }) => {
   const onSubmit = async event => {
     event.preventDefault();
 
-    await axios.post(`${BACKEND_URL}:4001/posts/${postId}/comments`, {
+    await axios.post(`${BACKEND_URL}/posts/${postId}/comments`, {
       content
     });
 

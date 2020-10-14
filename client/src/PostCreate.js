@@ -9,7 +9,7 @@ export default () => {
     event.preventDefault();
 
     try {
-      await axios.post(`${BACKEND_URL}:4000/posts/create`, {
+      await axios.post(`${BACKEND_URL}/posts/create`, {
         title
       });
     } catch (error) {
@@ -18,7 +18,7 @@ export default () => {
         let message = error.response.data.message;
         throw Array.isArray(message) ? message : [message];
       }
-      throw "Server probably crashed...";
+      throw new Error("Server probably crashed...");
     }
 
     setTitle('');
