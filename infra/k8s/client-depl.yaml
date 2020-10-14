@@ -17,7 +17,7 @@ spec:
         - name: client
           image: rayjc/client
           env:
-          - name: BACKEND_URL
+          - name: REACT_APP_BACKEND_URL
             value: "http://myapp.com"
 # clusterip service
 ---
