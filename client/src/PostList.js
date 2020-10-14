@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CommentCreate from './CommentCreate';
 import CommentList from './CommentList';
+import { BACKEND_URL } from './config';
 
 export default () => {
   const [posts, setPosts] = useState({});
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('http://localhost:4002/posts');
+      const res = await axios.get(`${BACKEND_URL}:4002/posts`);
       setPosts(res.data);
     } catch (error) {
       console.error("API error", error.response);

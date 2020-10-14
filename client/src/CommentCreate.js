@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BACKEND_URL } from './config';
 
 export default ({ postId }) => {
   const [content, setContent] = useState('');
@@ -7,7 +8,7 @@ export default ({ postId }) => {
   const onSubmit = async event => {
     event.preventDefault();
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+    await axios.post(`${BACKEND_URL}:4001/posts/${postId}/comments`, {
       content
     });
 

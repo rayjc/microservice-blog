@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BACKEND_URL } from './config';
 
 export default () => {
   const [title, setTitle] = useState('');
@@ -8,7 +9,7 @@ export default () => {
     event.preventDefault();
 
     try {
-      await axios.post('http://localhost:4000/posts', {
+      await axios.post(`${BACKEND_URL}:4000/posts`, {
         title
       });
     } catch (error) {
